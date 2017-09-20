@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.SimpleAdapter
@@ -15,7 +16,12 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private var database: Database? = null
+    companion object {
+
+        val arrayList: ArrayList<HashMap<String, String>> = ArrayList()
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     fun buttonGravar(view: View) {
 
-        val arrayList: ArrayList<HashMap<String, String>> = ArrayList()
-
-
         val pessoa = Pessoa()
         pessoa.nome = nome.text.toString()
         pessoa.email = email.text.toString()
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         val chave = arrayOf("Nome", "E-mail", "Telefone", "Endereço")
         val valor = arrayOf(pessoa.nome, pessoa.email, pessoa.telefone, pessoa.endereco)
+
 
         valor.forEachIndexed { index, editable ->
 
@@ -52,15 +56,7 @@ class MainActivity : AppCompatActivity() {
         val simpleAdapter = SimpleAdapter(this, arrayList, R.layout.item, from, to)
         simpleListView.adapter = simpleAdapter
 
-        simpleListView.setOnItemClickListener { parent, view, position, id ->
-
-            val chave_selecionada = chave[position]
-            val valor_selecionada = valor[position]
-
-            toast("$chave_selecionada: $valor_selecionada")
-
-
-        }
+        simpleListView.setOnItemClickListener { parent, view, position, id -> }
 
         hideKeyboard()
 
